@@ -1,17 +1,12 @@
-package main
+package tools
 
 import (
 	"context"
 	"github.com/chromedp/chromedp"
 	"github.com/chromedp/chromedp/device"
-	"io/ioutil"
-	"log"
 )
 
-func main() {
-	//var err error
-
-	// 连接远程服务器
+func AnalysisHtml(url string) (string, error) {
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
@@ -23,13 +18,10 @@ func main() {
 
 		// set really large viewport
 		chromedp.EmulateViewport(1920, 2000),
-		chromedp.Navigate(`http://baixarquadrinhos.com/Hq-Quadrinho/baixar-tirinha-calvin-e-haroldo-e-foi-assim-que-tudo-comecou-em-pdf-cbr-ou-ler-online/`),
+		chromedp.Navigate(url),
 		chromedp.OuterHTML("html", &body),
 	); err != nil {
-		log.Fatal(err)
+		return "", err
 	}
-
-	if err := ioutil.WriteFile("test.html", []byte(body), 0644); err != nil {
-		log.Fatal(err)
-	}
+	return body, nil
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"github.com/chromedp/chromedp"
+	"io/ioutil"
 	"log"
 )
 
@@ -27,6 +28,7 @@ func main() {
 		log.Fatalf("Failed getting body of duckduckgo.com: %v", err)
 	}
 
-	log.Println("Body of duckduckgo.com starts with:")
-	log.Println(body[0:100])
+	if err := ioutil.WriteFile("baidu.html", []byte(body), 0644); err != nil {
+		log.Fatal(err)
+	}
 }
