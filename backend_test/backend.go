@@ -1,25 +1,17 @@
-# chromedp-Study
-chromedp Study Chromedp 学习
+package main
 
+import (
+	"context"
+	"github.com/chromedp/chromedp"
+	"github.com/chromedp/chromedp/device"
+	"io/ioutil"
+	"log"
+)
 
-#### Install ChromeDp
-``` 
-go get -u github.com/chromedp/chromedp
-```
+func main() {
+	//var err error
 
-### Chrome无界面容器
-``` 
-docker pull chromedp/headless-shell
-docker run -d -p 9222:9222 --rm --name headless-shell chromedp/headless-shell
-
-测试是否正常
-http://127.0.0.1:9222/json
-```
-
-### 获取加载完毕的网页
-注释：这个作者更新太勤快了吧，API更新的大变样了
-``` 
-    // 连接远程服务器
+	// 连接远程服务器
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
@@ -40,4 +32,4 @@ http://127.0.0.1:9222/json
 	if err := ioutil.WriteFile("test.html", []byte(body), 0644); err != nil {
 		log.Fatal(err)
 	}
-```
+}
